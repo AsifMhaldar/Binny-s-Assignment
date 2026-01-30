@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "binny-s-assignment.vercel.app/api"
+  baseURL: "https://binny-backend.vercel.app/api"
 });
 
 API.interceptors.request.use((req) => {
