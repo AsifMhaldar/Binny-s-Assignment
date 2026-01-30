@@ -8,7 +8,17 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-app.use(cors());
+
+app.use(cors({
+  origin: "https://binny-s-assignment-sb23.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+
+app.options("*", cors());
+
 app.use(express.json());
 
 
@@ -17,12 +27,12 @@ app.use("/api/auth", authRoutes);
 
 
 let isConnected = false;
-async function connectToMongoDB(){
+
+async function connectToMongoDB() {
+  if (isConnected) return;
+
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     isConnected = true;
     console.log("MongoDB Connected");
   } catch (error) {
@@ -30,15 +40,16 @@ async function connectToMongoDB(){
   }
 }
 
+
 app.use(async (req, res, next) => {
   if (!isConnected) {
     await connectToMongoDB();
   }
   next();
-}
-);
+});
 
 module.exports = app;
+
 
 // mongoose.connect(process.env.MONGO_URI)
 //   .then(() => console.log("MongoDB Connected"))
