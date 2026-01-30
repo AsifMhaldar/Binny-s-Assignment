@@ -8,7 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-
+/* ✅ CORS */
 app.use(cors({
   origin: "https://binny-s-assignment-sb23.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -16,16 +16,10 @@ app.use(cors({
   credentials: true
 }));
 
-
 app.options("*", cors());
-
 app.use(express.json());
 
-
-app.use("/api/movies", movieRoutes);
-app.use("/api/auth", authRoutes);
-
-
+/* ✅ MongoDB connection (before routes) */
 let isConnected = false;
 
 async function connectToMongoDB() {
@@ -36,16 +30,25 @@ async function connectToMongoDB() {
     isConnected = true;
     console.log("MongoDB Connected");
   } catch (error) {
-    console.log("MongoDB connection error:", error);
+    console.error("MongoDB connection error:", error);
   }
 }
 
-
+// connect before every request
 app.use(async (req, res, next) => {
   if (!isConnected) {
     await connectToMongoDB();
   }
   next();
+});
+
+/* ✅ Routes AFTER DB connection */
+app.use("/api/movies", movieRoutes);
+app.use("/api/auth", authRoutes);
+
+/* Health check */
+app.get("/", (req, res) => {
+  res.send("Backend is running");
 });
 
 module.exports = app;
