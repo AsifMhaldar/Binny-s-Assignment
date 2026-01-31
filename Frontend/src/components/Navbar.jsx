@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login", { replace: true });
+    navigate("/login");
   };
 
   return (
@@ -31,19 +31,33 @@ const Navbar = () => {
         </Box>
         
         <Box sx={{ display: "flex", gap: 1 }}>
-          {/* Show only when logged in */}
+          <Button color="inherit" component={Link} to="/home">
+            Home
+          </Button>
+
+          <Button color="inherit" component={Link} to="/search">
+            Search
+          </Button>
+
+          {!auth.user && (
+            <>
+              <Button color="inherit" component={Link} to="/register">
+                Register
+              </Button>
+              <Button color="inherit" component={Link} to="/login">
+                Login
+              </Button>
+            </>
+          )}
+
           {auth.user && (
             <>
-              <Button color="inherit" component={Link} to="/home">
-                Home
-              </Button>
-
-              <Button color="inherit" component={Link} to="/search">
-                Search
-              </Button>
-
               {auth.user.role === "admin" && (
-                <Button color="inherit" component={Link} to="/admin/add">
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/admin/add"
+                >
                   Add Movie
                 </Button>
               )}
@@ -55,18 +69,6 @@ const Navbar = () => {
                 onClick={handleLogout}
               >
                 Logout
-              </Button>
-            </>
-          )}
-
-          {/* Show only when NOT logged in */}
-          {!auth.user && (
-            <>
-              <Button color="inherit" component={Link} to="/register">
-                Register
-              </Button>
-              <Button color="inherit" component={Link} to="/login">
-                Login
               </Button>
             </>
           )}

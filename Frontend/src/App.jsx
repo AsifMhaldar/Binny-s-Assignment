@@ -7,55 +7,21 @@ import AddMovie from "./pages/AddMovie";
 import EditMovie from "./pages/EditMovie";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-import PublicRoute from "./components/PublicRoute";
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        {/* Default */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/register" />} />
 
-        {/* Public routes (only if NOT logged in) */}
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
+        <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
 
-        {/* Protected user routes */}
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/search"
-          element={
-            <ProtectedRoute>
-              <Search />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Protected admin routes */}
+        {/* Protected Admin Routes */}
         <Route
           path="/admin/add"
           element={

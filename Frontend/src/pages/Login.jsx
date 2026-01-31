@@ -14,41 +14,16 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      alert("Please enter email and password");
-      return;
-    }
-
+  const handleLogin = async () => {
     try {
-      setLoading(true);
-
       const res = await API.post("/auth/login", { email, password });
-
-      // save token in context
       login(res.data.token);
-
-      // optional role-based redirect
-      const decodedRole = JSON.parse(atob(res.data.token.split(".")[1])).role;
-
-      if (decodedRole === "admin") {
-        navigate("/home", { replace: true });
-      } else {
-        navigate("/home", { replace: true });
-      }
-
+      navigate("/home");
     } catch (error) {
-      console.error("Login error:", error);
       alert(error.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -72,44 +47,44 @@ const Login = () => {
           borderRadius: 3
         }}
       >
-        <Typography variant="h4" textAlign="center" fontWeight="bold" mb={3}>
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight="bold"
+          mb={3}
+        >
           🔐 Login
         </Typography>
 
-        <form onSubmit={handleLogin}>
-          <Stack spacing={2}>
-            <TextField
-              label="Email"
-              type="email"
-              fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        <Stack spacing={2}>
+          <TextField
+            label="Email"
+            type="email"
+            fullWidth
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+          <TextField
+            label="Password"
+            type="password"
+            fullWidth
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-            <Button
-              variant="contained"
-              size="large"
-              type="submit"
-              disabled={loading}
-              sx={{
-                mt: 2,
-                borderRadius: 2,
-                py: 1.5,
-                fontSize: "16px"
-              }}
-            >
-              {loading ? "Logging in..." : "Login"}
-            </Button>
-          </Stack>
-        </form>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              mt: 2,
+              borderRadius: 2,
+              py: 1.5,
+              fontSize: "16px"
+            }}
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+        </Stack>
       </Paper>
     </Box>
   );
