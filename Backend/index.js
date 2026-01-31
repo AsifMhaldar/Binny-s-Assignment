@@ -9,45 +9,26 @@ const authRoutes = require("./routes/authRoutes");
 const app = express();
 
 
+app.use(express.json());
 app.use(cors({
   origin: "https://menmovieapp.netlify.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-app.use(express.json());
 
 
 app.use("/api/movies", movieRoutes);
 app.use("/api/auth", authRoutes);
 
 
-// let isConnected = false;
-// async function connectToMongoDB(){
-//   try {
-//     await mongoose.connect(process.env.MONGO_URI, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true
-//     });
-//     isConnected = true;
-//     console.log("MongoDB Connected");
-//   } catch (error) {
-//     console.log("MongoDB connection error:", error);
-//   }
-// }
-
-// app.use(async (req, res, next) => {
-//   if (!isConnected) {
-//     await connectToMongoDB();
-//   }
-//   next();
-// }
-// );
-
-// module.exports = app;
-
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .then(() => console.log("MongoDB Connected Successfully"))
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
