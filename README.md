@@ -43,6 +43,6 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application that allows use
 - CORS
 
 ### Deployment
-- Frontend: Netlify / Vercel
-- Backend: Render / Vercel
+- Frontend: Netlify
+- Backend: Render
 - Database: MongoDB Atlas
