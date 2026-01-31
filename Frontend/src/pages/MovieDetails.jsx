@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import { Box, Typography, Paper, Button } from "@mui/material";
 
 const MovieDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
@@ -34,11 +35,18 @@ const MovieDetails = () => {
         <Box sx={{ mt: 2 }}>
           <Typography>⭐ Rating: {movie.rating}</Typography>
           <Typography>⏱ Duration: {movie.duration}</Typography>
-          <Typography>📅 Release Date: {new Date(movie.releaseDate).toDateString()}</Typography>
+          <Typography>
+            📅 Release Date: {new Date(movie.releaseDate).toDateString()}
+          </Typography>
           <Typography>🎭 Genre: {movie.genre}</Typography>
         </Box>
 
-        <Button sx={{ mt: 3 }} variant="contained" href="/home">
+        {/* Correct Back button */}
+        <Button
+          sx={{ mt: 3 }}
+          variant="contained"
+          onClick={() => navigate(-1)}
+        >
           Back
         </Button>
       </Paper>
