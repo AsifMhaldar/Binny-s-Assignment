@@ -40,7 +40,6 @@ const MovieDetails = () => {
           </Typography>
         </Box>
 
-        {/* Correct Back button */}
         <Button
           sx={{ mt: 3 }}
           variant="contained"
