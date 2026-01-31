@@ -58,6 +58,18 @@ const MovieCard = ({ movie, isAdmin, onDelete }) => {
           <Typography>📅 {formattedDate}</Typography>
         </Box>
 
+        {/* View Details button (for all users) */}
+        <Button
+          component={Link}
+          to={`/movies/${movie._id}`}
+          size="small"
+          variant="outlined"
+          sx={{ mt: 2 }}
+        >
+          View Details
+        </Button>
+
+        {/* Admin buttons */}
         {isAdmin && movie._id && (
           <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
             <Button

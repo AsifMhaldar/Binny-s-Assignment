@@ -7,6 +7,7 @@ import AddMovie from "./pages/AddMovie";
 import EditMovie from "./pages/EditMovie";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MovieDetails from "./pages/MovieDetails";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
 
         <Route path="/home" element={<Home />} />
         <Route path="/search" element={<Search />} />
+        <Route
+          path="/movies/:id"
+          element={
+            <ProtectedRoute>
+              <MovieDetails />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Protected Admin Routes */}
         <Route
