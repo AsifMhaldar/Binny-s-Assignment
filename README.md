@@ -46,3 +46,5 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application that allows use
 - Frontend: Netlify
 - Backend: Render
 - Database: MongoDB Atlas
+
+live application URL :- https://mernmovieapp.netlify.app/login
