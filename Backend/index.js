@@ -10,7 +10,9 @@ const app = express();
 
 
 app.use(cors({
-  origin: "https://menmovieapp.netlify.app/"
+  origin: "https://menmovieapp.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 app.use(express.json());
 
