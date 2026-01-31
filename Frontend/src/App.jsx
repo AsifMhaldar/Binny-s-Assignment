@@ -7,7 +7,6 @@ import AddMovie from "./pages/AddMovie";
 import EditMovie from "./pages/EditMovie";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-import PublicRoute from "./components/PublicRoute";
 import MovieDetails from "./pages/MovieDetails";
 
 function App() {
@@ -18,24 +17,9 @@ function App() {
         {/* Default */}
         <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Public routes (only when NOT logged in) */}
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
+        {/* Public pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Protected user routes */}
         <Route
