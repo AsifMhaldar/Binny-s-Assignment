@@ -38,7 +38,6 @@ const MovieDetails = () => {
           <Typography>
             📅 Release Date: {new Date(movie.releaseDate).toDateString()}
           </Typography>
-          <Typography>🎭 Genre: {movie.genre}</Typography>
         </Box>
 
         {/* Correct Back button */}
